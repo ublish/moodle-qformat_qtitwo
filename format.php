@@ -52,25 +52,25 @@ class qformat_qtitwo extends qformat_default {
         $sourcelen = strlen($source);
         $pt = 0;
         while ($pt < $sourcelen) {
-            if ($source{$pt} === '<') {
+            if ($source[$pt] === '<') {
                 // We have entered a tag.
                 // Remember the point where the tag starts.
                 $startedat = $pt;
                 $taglevel = 1;
                 // If the second letter of the tag is "/", assume its an ending tag.
-                if ($source{$pt + 1} === '/') {
+                if ($source[$pt + 1] === '/') {
                     $taglevel = -1;
                 }
                 // If the second letter of the tag is "!", assume its an "invisible" tag.
-                if ($source{$pt + 1} === '!') {
+                if ($source[$pt + 1] === '!') {
                     $taglevel = 0;
                 }
                 // Iterate throught the source until the end of tag.
-                while ($source{$pt} !== '>') {
+                while ($source[$pt] !== '>') {
                     $pt++;
                 }
                 // If the second last letter is "/", assume its a self ending tag.
-                if ($source{$pt - 1} === '/') {
+                if ($source[$pt - 1] === '/') {
                     $taglevel = 0;
                 }
                 $taglenght = $pt + 1 - $startedat;
@@ -92,14 +92,14 @@ class qformat_qtitwo extends qformat_default {
             // If next letter exists...
             if (($pt + 1) < $sourcelen) {
                 // ... and its not an "<".
-                if ($source{$pt + 1} !== '<') {
+                if ($source[$pt + 1] !== '<') {
                     $startedat = $pt + 1;
                     // Iterate through the source until the start of new tag or until we reach the end of file.
-                    while ($source{$pt} !== '<' && $pt < $sourcelen) {
+                    while ($source[$pt] !== '<' && $pt < $sourcelen) {
                         $pt++;
                     }
                     // If we found a "<" (we didnt find the end of file).
-                    if ($source{$pt} === '<') {
+                    if ($source[$pt] === '<') {
                         $taglenght = $pt - $startedat;
                         // Place the stuff in an array with proper indention.
                         $array[] = str_repeat($indenter, $level).substr($source, $startedat, $taglenght);
