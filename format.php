@@ -699,7 +699,7 @@ class qformat_qtitwo extends qformat_default {
             }
         }
         $smarty = new Smarty;
-        $smarty->template_dir = "{$CFG->dirroot}/question/format/qtitwo/templates/claroline";
+        $smarty->template_dir = "{$CFG->dirroot}/question/format/qtitwo/templates/standard";
         $smarty->compile_dir  = "$path";
         return $smarty;
     }
